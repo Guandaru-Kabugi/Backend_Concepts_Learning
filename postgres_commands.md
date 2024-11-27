@@ -59,3 +59,32 @@ ALTER TABLE person ADD CONSTRAINT gender_constraint CHECK(gender = 'Female' OR g
 # DELETE DATA
 DELETE FROM person WHERE id=1001;
 # UPDATE DATA
+UPDATE person SET email='eurien@gmail.com' WHERE id=5;
+# ON CONFLICT DO NOTHING
+INSERT INTO person(id,first_name,last_name,gender,email,date_of_birth,country_of_birth)
+VALUES(17,'Jude','Drinnan','Male','jdrinnang@ed.gov',DATE '2004-02-05','China')
+test-# ON CONFLICT (id) DO NOTHING;
+# UPSERT ON CONFLICT DO UPDATE
+NSERT INTO person(id,first_name,last_name,gender,email,date_of_birth,country_of_birth)
+VALUES(17,'Jude','Drinnan','Male','jdrinnang@ed.gov',DATE '2004-02-05','China')
+ON CONFLICT (id) DO UPDATE SET email=EXCLUDED.email; allows the update of a specific section, even where constraints exist
+# FOREIGN KEY JOIN 
+UPDATE person SET car_id = 1 WHERE id = 1; car_id is foreign key
+# INNER JOIN
+SELECT * FROM person JOIN car ON person.car_id = car.id;
+SELECT person.first_name, car.make, car.model,car.price FROM person  JOIN car ON person.car_id = car.id; selecting few columns
+# LEFT JOIN
+SELECT * FROM person LEFT JOIN car ON person.car_id = car.id;
+SELECT * FROM person LEFT JOIN car ON person.car_id = car.id WHERE car.* IS NULL;
+# DELETE RECORD WITH FOREIGN KEY CONSTRAINT
+UPDATE person SET car_id = NULL WHERE id = 1;                                    
+UPDATE 1
+test=# DELETE FROM car WHERE id =1;
+# COPYING TO CSV
+\copy (SELECT * FROM person LEFT JOIN car on car.id = person.car_id) TO '/home/pc/Downloads/results.csv' DELIMITER ',' CSV HEADER;
+# ALTER SEQUENCE OF DATA RECORDS IN BIGSERIAL
+\d person
+ALTER SEQUENCE person_id_seq RESTART WITH 9;
+# EXTENSIONS ON POSTGRES
+SELECT * FROM pg_available_extensions;
+# UNDERSTANDING UUIDs UNIVERSALLY UNIQUE IDENTIFIERS
