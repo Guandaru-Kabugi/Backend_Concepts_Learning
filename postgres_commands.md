@@ -46,7 +46,7 @@ SELECT (NOW() + INTERVAL '10 YEARS')::DATE; getting just the date
 SELECT EXTRACT(YEAR FROM NOW()); extract the actual year
 SELECT first_name,last_name,gender,country_of_birth,date_of_birth,EXTRACT(YEAR FROM AGE(NOW(),date_of_birth)) AS age FROM person; extracting the year
 # DROPPING & ADDING CONSTRAINTS FOR PRIMARY KEY
-ALTER person DROP CONSTRAINT person_pkey;
+ALTER TABLE person DROP CONSTRAINT person_pkey;
 ALTER TABLE person ADD PRIMARY KEY(id);
 # DELETE ROW DATA
 DELETE FROM person WHERE id = 1;
