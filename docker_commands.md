@@ -51,3 +51,12 @@ docker system prune -a # removes all images not in use by any container
 docker run -d -p 8080:80 --name webserver nginx
 docker container exec -it webserver bash
 
+# Building containers
+docker build -t [name:tag] .  # builds an image using a dockerfile located in the same folder
+docker build -t [name:tag] -f [filename] # builds an image using dockerfile located in a different folder
+docker tag [imagename] [name:tag] #tag an existing image
+
+
+# Running my tracking expense on docker
+docker-compose exec trackingexpenses python manage.py makemigrations
+docker-compose exec trackingexpenses python manage.py migrate
